@@ -12,17 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const supertest_1 = __importDefault(require("supertest"));
-const index_1 = __importDefault(require("../index"));
-const request = (0, supertest_1.default)(index_1.default);
-//  Testing Main End point Response
-describe('Test endpoint responses', () => {
-    it('gets the api endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get('/api');
-        expect(response.status).toBe(200);
-    }));
-    it('gets /api/images?filename=fjord&width=200&height=200', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get('/api/images?filename=fjord&width=200&height=200');
-        expect(response.status).toBe(200);
-    }));
+//  Import npm sharp module to resize images
+const sharp_1 = __importDefault(require("sharp"));
+//  Asyncronous Function to resize input image and return it as output image
+const resizeImage = (inputImage, widthImage, heightImage, outputImage) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, sharp_1.default)(inputImage)
+        .resize({
+        width: widthImage,
+        height: heightImage,
+        fit: 'contain',
+        position: 'center',
+        background: { r: 255, g: 255, b: 255, alpha: 0.5 },
+    })
+        .toFile(outputImage)
+        .then(() => console.log('done...'))
+        .catch((error) => console.log('error', error));
 });
+exports.default = resizeImage;
