@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Placeholder Api</title>
+    <meta
+      name="description"
+      content="placeholder API website for resizing image"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="content">
+      <h1>PLACEHOLDER API</h1>
+      <p>Welcome, in my placeholder API website for resizing image</p>
+      <form action="http://localhost:3000/api/images" method="GET" target="_blank">
+        <h2>Choose The Image:</h2>
+        <div>
+          <input id="img1" type="radio" name="filename" value="encenadaport" />
+          <label for="img1">Encenadaport Image</label>
+        </div>
+        <div>
+          <input id="img2" type="radio" name="filename" value="fjord" checked />
+          <label for="img2">Fjord Image</label>
+        </div>
+        <div>
+          <input
+            id="img3"
+            type="radio"
+            name="filename"
+            value="icelandwaterfall"
+          />
+          <label for="img3">Icelandwaterfall Image</label>
+        </div>
+        <div>
+          <input id="img4" type="radio" name="filename" value="palmtunnel" />
+          <label for="img4">Palmtunnel Image</label>
+        </div>
+        <div>
+          <input id="img5" type="radio" name="filename" value="santamonica" />
+          <label for="img5">Santamonica Image</label>
+        </div>
+        <div>
+          <label for="">Enter Width</label>
+          <input
+            type="number"
+            required
+            placeholder="Width"
+            name="width"
+            min="1"
+          />
+        </div>
+        <div>
+          <label for="">Enter Height</label>
+          <input
+            type="number"
+            required
+            placeholder="Height"
+            name="height"
+            min="1"
+          />
+        </div>
+        <input class="btn" type="reset" value="Reset" />
+        <input class="btn" type="submit" value="Generate" />
+      </form>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
