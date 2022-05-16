@@ -14,12 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
-const node_cache_1 = __importDefault(require("node-cache"));
 const fs_1 = __importDefault(require("fs"));
 const imgprocessing_1 = __importDefault(require("../../utility/imgprocessing"));
 const img = express_1.default.Router();
-//  Create new Node cache to store resized image in it
-const myCache = new node_cache_1.default();
 //   Function to check if a file already exists in the given path or not
 function checkFileExists(outputImage) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -44,6 +41,9 @@ img.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         heightImage <= 0) {
         res.send('Error,Width or Height or both is not valid number');
     }
+    else if ((yield checkFileExists(inputImage)) === false) {
+        res.send('Error,The souce image is not exist');
+    }
     else if (
     //   Check if a file already exists in the given path or not
     yield checkFileExists(outputImage)) {
@@ -57,10 +57,6 @@ img.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.sendFile(`${req.query.filename}${req.query.width}-${req.query.height}.jpg`, {
             root: path_1.default.join(__dirname, '../../../images/thumbs'),
         });
-        //  Set values in the node cache
-        myCache.set('filename', req.query.filename);
-        myCache.set('width', req.query.width);
-        myCache.set('height', req.query.height);
     }
 }));
 exports.default = img;

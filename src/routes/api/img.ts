@@ -1,12 +1,9 @@
 import express from 'express';
 import path from 'path';
-import NodeCache from 'node-cache';
 import fs from 'fs';
 import resizeImage from '../../utility/imgprocessing';
 
 const img = express.Router();
-//  Create new Node cache to store resized image in it
-const myCache = new NodeCache();
 
 //   Function to check if a file already exists in the given path or not
 async function checkFileExists(outputImage: fs.PathLike): Promise<boolean> {
@@ -33,6 +30,8 @@ img.get(
             heightImage <= 0
         ) {
             res.send('Error,Width or Height or both is not valid number');
+        } else if ((await checkFileExists(inputImage)) === false) {
+            res.send('Error,The souce image is not exist');
         } else if (
             //   Check if a file already exists in the given path or not
             await checkFileExists(outputImage)
@@ -52,10 +51,6 @@ img.get(
                     root: path.join(__dirname, '../../../images/thumbs'),
                 }
             );
-            //  Set values in the node cache
-            myCache.set('filename', req.query.filename);
-            myCache.set('width', req.query.width);
-            myCache.set('height', req.query.height);
         }
     }
 );
