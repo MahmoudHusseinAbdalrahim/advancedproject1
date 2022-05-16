@@ -45,7 +45,6 @@ This project requires you to build an API can be used in two different ways. As 
 - https://www.npmjs.com/package/sharp
 - https://sharp.pixelplumbing.com/api-constructor
 - https://nodejs.org/api/fs.html
-- https://www.geeksforgeeks.org/node-js-fs-existssync-method/
 
 ## Extras
 
